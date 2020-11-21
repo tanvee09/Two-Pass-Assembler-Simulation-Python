@@ -43,14 +43,14 @@ NMRI_io = {
 }
 
 addressingModes = {
-    "immediate": "1000",
-    "direct": "1001",
-    "indirect": "1010",
-    "relativePC": "1011",
-    "base": "1100",
-    "register": "1101",
+    "immediate":        "1000",
+    "direct":           "1001",
+    "indirect":         "1010",
+    "relativePC":       "1011",
+    "base":             "1100",
+    "register":         "1101",
     "registerIndirect": "1110",
-    "autoInc": "1111"
+    "autoInc":          "1111"
 }
 
 generalPurposeRegs = {
