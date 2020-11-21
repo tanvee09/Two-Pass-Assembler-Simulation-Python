@@ -18,6 +18,7 @@ with open("machineCode.txt", mode='r') as f:
                 LC = int(inst[1])
                 continue
             elif oprn == 'END':
+                LC += 1
                 break
             elif oprn in MRI:
                 LC += 1
@@ -34,9 +35,9 @@ with open("machineCode.txt", mode='r') as f:
         inst = line.split('/')[0].split()
         if line[0] == ".":
             if inst[1] == 'DEC':
-                binary_code.append([decimalToBinary(addSymbol[inst[0][1:]]), decimalToBinary(inst[-1])])
+                binary_code.append([toBinary(addSymbol[inst[0][1:]], 10), toBinary(inst[-1], 10)])
             elif inst[1] == 'HEX':
-                binary_code.append([decimalToBinary(addSymbol[inst[0][1:]]), hexToBinary(inst[-1])])
+                binary_code.append([toBinary(addSymbol[inst[0][1:]], 10), toBinary(inst[-1], 16)])
         else:
             oprn = inst[0]
             if oprn == 'ORG':
