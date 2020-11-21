@@ -26,7 +26,6 @@ def findAddressingMode(address: str) -> str :
         return addressingModes['direct']
 
 def findAddressBits(address: str, addMode: str, addSymbol: dict) -> str:
-    print(address[1:].isdecimal(), addMode)
     if addMode == '1101':
         return generalPurposeRegs[address]
     elif addMode == '1110':
