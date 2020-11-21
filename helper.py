@@ -9,7 +9,7 @@ def toBinary(n, b: int) -> str:
 
 def findAddressingMode(address: str) -> str :
     if address[0] == '#':
-        return addressingModes['direct']
+        return addressingModes['immediate']
     elif address[0] == '@':
         return addressingModes['indirect']
     elif address[0] == '$':
@@ -26,14 +26,17 @@ def findAddressingMode(address: str) -> str :
         return addressingModes['direct']
 
 def findAddressBits(address: str, addMode: str, addSymbol: dict) -> str:
+    print(address[1:].isdecimal(), addMode)
     if addMode == '1101':
         return generalPurposeRegs[address]
     elif addMode == '1110':
         return generalPurposeRegs[address[1:-1]]
     elif addMode == '1111':
         return generalPurposeRegs[address[1:-2]]
-    elif address.isdecimal() or (addMode != '1001' and address[1:].isdecimal()):
+    elif addMode == '1001' and address.isdecimal():
         return address
+    elif addMode != '1001' and address[1:].isdecimal():
+        return toBinary(address[1:], 2)
     elif addMode == '1001':
         return toBinary(addSymbol[address], 10)
     else:
