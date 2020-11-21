@@ -21,7 +21,7 @@ def findAddressingMode(address: str) -> str :
     elif address[-1] == '+':
         return addressingModes['autoInc']
     elif address in generalPurposeRegs:
-        return addressingModes['regsiter']
+        return addressingModes['register']
     else:
         return addressingModes['direct']
 
