@@ -1,7 +1,7 @@
 from tables import *
 
-def toBinary(n: str, b: int) -> str:
-    binary = bin(int(n, b)).replace("0b", "")
+def toBinary(n, b: int) -> str:
+    binary = bin(int(str(n), b)).replace("0b", "")
     if binary[0] == '-':
         return '1' * (8 - len(binary) + 1) + ''.join(['1' if bit == '0' else '0' for bit in binary[1:]])
     else:
