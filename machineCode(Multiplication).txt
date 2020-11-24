@@ -1,0 +1,26 @@
+        ORG     100
+.LOP    CLE             /Clear E
+        LDA     Y       /Load Multipler
+        CIR             /Transfer multiplier bit to E
+        STA     Y       /Store shifter multiplier
+        SZE
+        BUN     ONE     /Bit is one; go to ONE
+        BUN     ZRO     /Bit is zero; go to ZRO
+.ONE    LDA     X       /Load Multiplicand
+        ADD     P       /Add to partial product
+        STA     P       /Store partial product
+        CLE             /Clear E
+.ZRO    LDA     X       /Load Multiplicand
+        CIL             /Shift left
+        STA     X       /Store shifted Multiplicand
+        LDA     CTR     /Load CTR
+        INC             /Increment Accumulator
+        STA     CTR     /Store incremented value of CTR
+        SZA
+        BUN     LOP     /Counter not zero; repeat loop
+        HLT             /Counter is zero; halt
+.CTR    DEC     -8      /This location serves as counter
+.X      HEX     0A      /Multiplicand stored here
+.Y      HEX     03      /Multiplier stored here
+.P      HEX     0       /Product formed here
+        END
