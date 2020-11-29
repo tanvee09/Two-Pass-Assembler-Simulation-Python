@@ -111,7 +111,10 @@ with open("machineCode.txt", mode='r') as f:
             callError(lineNo, "Opcode not found")
         LC += 1
         if LC >= 2**8:
-            callError(lineNo, "Program has run out of memor")
+            callError(lineNo, "Program memory out of bounds")
+
+    else:
+        callError(lineNo, "END not found. Machine program should end with END")
 
 
 with open("binarycode.txt", mode='w') as f:
