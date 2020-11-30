@@ -71,8 +71,6 @@ with open("machineCode.txt", mode='r') as f:
                     int(inst[-1])
                 except:
                     callError(lineNo, "Value at label should be decimal")
-                # if not inst[-1].isdecimal():
-                #     callError(lineNo, "Value at label cannot contain characters")
                 if int(inst[-1]) > (2**7 - 1) or int(inst[-1]) < -2**7 + 1:
                     callError(lineNo, "Value out of bounds")
                 binary_code.append([toBinary(addSymbol[inst[0][1:]], 10), toBinary(inst[-1], 10)])
@@ -97,6 +95,8 @@ with open("machineCode.txt", mode='r') as f:
         elif oprn == 'END':
             break
         elif oprn in MRI:
+            if len(inst) > 2:
+                callError(lineNo, "Invalid number of operands")
             binary_code += binaryForMRI(inst, LC, addSymbol, lineNo)
             LC += 1
         elif oprn in NMRI_io:
