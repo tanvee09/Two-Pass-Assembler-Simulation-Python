@@ -41,18 +41,20 @@ def findAddressBits(address: str, addMode: str, addSymbol: dict, lineNo: int) ->
         return generalPurposeRegs[address]
 
     elif addMode == '1110': # registerIndirect
+        address = address[1:-1]
         if address not in generalPurposeRegs.keys():
             callError(lineNo, "Referenced Register does not exist")
-        return generalPurposeRegs[address[1:-1]]
+        return generalPurposeRegs[address]
 
     elif addMode == '1111': # autoInc
+        address = address[1:-2]
         if address not in generalPurposeRegs.keys():
             callError(lineNo, "Referenced Register does not exist")
-        return generalPurposeRegs[address[1:-2]]
+        return generalPurposeRegs[address]
 
     elif addMode == '1000': # immediate
         if len(address) != 8 or re.fullmatch("[01]*", address) == None:
-            callError(lineNo, "Address should be in binary")
+            callError(lineNo, "Address should be in binary or a valid label")
         return toBinary(address[1:], 2)
 
     if addMode != '1001':# not direct
@@ -63,7 +65,7 @@ def findAddressBits(address: str, addMode: str, addSymbol: dict, lineNo: int) ->
     elif address in addSymbol.keys():
         return toBinary(addSymbol[address], 10)
     else:
-        callError(lineNo, "Address should be in binary")
+        callError(lineNo, "Address should be in binary or a valid label")
 
 
 def binaryForMRI(inst: list, LC: int, addSymbol: dict, lineNo: int) -> str:

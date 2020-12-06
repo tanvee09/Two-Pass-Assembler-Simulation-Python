@@ -95,17 +95,17 @@ with open("machineCode.txt", mode='r') as f:
         elif oprn == 'END':
             break
         elif oprn in MRI:
-            if len(inst) > 2:
+            if len(inst) != 2:
                 callError(lineNo, "Invalid number of operands")
             binary_code += binaryForMRI(inst, LC, addSymbol, lineNo)
             LC += 1
         elif oprn in NMRI_io:
             if len(inst) > 1:
-                callError(lineNo, "NMRI instructions only contain opcode")
+                callError(lineNo, "Invalid number of operands")
             binary_code.append(binaryForNMRI_io(inst, LC))
         elif oprn in NMRI_acc:
             if len(inst) > 1:
-                callError(lineNo, "NMRI instructions only contain opcode")
+                callError(lineNo, "Invalid number of operands")
             binary_code.append(binaryForNMRI_acc(inst, LC))
         else:
             callError(lineNo, "Opcode not found")
@@ -117,7 +117,7 @@ with open("machineCode.txt", mode='r') as f:
         callError(lineNo, "END not found. Machine program should end with END")
 
 
-with open("binarycode.txt", mode='w') as f:
+with open("binaryCode.txt", mode='w') as f:
     f.write('LOCATION\t\tCONTENT\n\n')
     f.writelines([ins[0] + '\t\t' + ins[1] + '\n' for ins in binary_code])
 
