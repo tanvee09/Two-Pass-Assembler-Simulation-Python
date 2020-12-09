@@ -12,7 +12,7 @@ addSymbol = dict()
 
 lineNo = 0
 
-with open("machineCode.txt", mode='r') as f:
+with open("../examples/machineCode.txt", mode='r') as f:
     for line in f:
         lineNo += 1
         inst = line.split('/')[0].split()
@@ -55,7 +55,7 @@ binary_code = []
 
 lineNo = 0
 
-with open("machineCode.txt", mode='r') as f:
+with open("../examples/machineCode.txt", mode='r') as f:
     for line in f:
         lineNo += 1
         inst = line.split('/')[0].split()
@@ -117,7 +117,7 @@ with open("machineCode.txt", mode='r') as f:
         callError(lineNo, "END not found. Machine program should end with END")
 
 
-with open("binaryCode.txt", mode='w') as f:
+with open("../examples/binaryCode.txt", mode='w') as f:
     f.write('LOCATION\t\tCONTENT\n\n')
     f.writelines([ins[0] + '\t\t' + ins[1] + '\n' for ins in binary_code])
 
