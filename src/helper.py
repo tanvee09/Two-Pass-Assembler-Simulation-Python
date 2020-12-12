@@ -53,7 +53,7 @@ def findAddressBits(address: str, addMode: str, addSymbol: dict, lineNo: int) ->
         return generalPurposeRegs[address]
 
     elif addMode == '1000': # immediate
-        if len(address) != 8 or re.fullmatch("[01]*", address) == None:
+        if len(address[1:]) != 8 or re.fullmatch("[01]*", address[1:]) == None:
             callError(lineNo, "Address should be in binary or a valid label")
         return toBinary(address[1:], 2)
 

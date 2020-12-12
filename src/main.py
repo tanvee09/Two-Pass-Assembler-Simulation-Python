@@ -3,8 +3,6 @@ from tables import *
 from helper import *
 
 
-
-
 # FIRST PASS
 
 LC = 0
@@ -35,7 +33,7 @@ with open("../examples/machineCode.txt", mode='r') as f:
             addSymbol.update({label:LC})
         else:
             if len(inst) == 0 :
-                callError(lineNo,"Line can not be empty or can not start with a comment, it must start with an instruction or a label")
+                callError(lineNo, "Line can not be empty or can not start with a comment, it must start with an instruction or a label")
             oprn = inst[0]
             if oprn == 'ORG':
                 LC = int(inst[1])
@@ -48,10 +46,11 @@ with open("../examples/machineCode.txt", mode='r') as f:
         LC += 1
 
 
+
 # SECOND PASS
 
 LC = 0
-binary_code = []
+binary_code = [] 
 
 lineNo = 0
 
@@ -60,13 +59,10 @@ with open("../examples/machineCode.txt", mode='r') as f:
         lineNo += 1
         inst = line.split('/')[0].split()
 
-        if len(inst) == 0 :
-            callError(lineNo,"Line can not be empty or can not start with a comment, it must start with an instruction or a label")
-
-        #
-
         if line[0] == ".":
             if inst[1] == 'DEC':
+                if len(inst) != 3:
+                    callError(lineNo, "Invalid number of operands")
                 try:
                     int(inst[-1])
                 except:
@@ -76,11 +72,13 @@ with open("../examples/machineCode.txt", mode='r') as f:
                 binary_code.append([toBinary(addSymbol[inst[0][1:]], 10), toBinary(inst[-1], 10)])
                 continue
             elif inst[1] == 'HEX':
+                if len(inst) != 3:
+                    callError(lineNo, "Invalid number of operands")
                 try:
                     int(inst[-1], 16)
                 except:
                     callError(lineNo, "Value at label should be hexadecimal")
-                if int(inst[-1], 16) > (2**7 - 1) or int(inst[-1], 16) < -2**7 + 1: # -7F FF
+                if int(inst[-1], 16) > (2**7 - 1) or int(inst[-1], 16) < -2**7 + 1:
                     callError(lineNo, "Value out of bounds")
                 binary_code.append([toBinary(addSymbol[inst[0][1:]], 10), toBinary(inst[-1], 16)])
                 continue
