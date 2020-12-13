@@ -16,21 +16,21 @@ def toBinary(n, b: int) -> str:
 
 
 def findAddressingMode(address: str) -> str :
-    if address[0] == '#':
+    if address[0] == '#':                   # LDA #NBR
         return addressingModes['immediate']
-    elif address[0] == '@':
+    elif address[0] == '@':                 # LDA @NBR
         return addressingModes['indirect']
-    elif address[0] == '$':
+    elif address[0] == '$':                 # LDA $NBR
         return addressingModes['relativePC']
-    elif address[0] == '+':
+    elif address[0] == '+':                 # LDA +NBR
         return addressingModes['base']
-    elif address[-1] == ')':
+    elif address[-1] == ')':                # LDA (R1)
         return addressingModes['registerIndirect']
-    elif address[-1] == '+':
+    elif address[-1] == '+':                # LDA (R1)+
         return addressingModes['autoInc']
-    elif address in generalPurposeRegs:
+    elif address in generalPurposeRegs:     # LDA R1
         return addressingModes['register']
-    else:
+    else:                                   # LDA NBR
         return addressingModes['direct']
 
 
